@@ -1,5 +1,4 @@
 import concurrent.futures
-import urllib.request
 from typing import List
 
 import pandas as pd
@@ -149,7 +148,8 @@ def create_bucket_class_location(bucket_name: str) -> str:
     print("create_bucket_class_location")
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
-    print("Bucket Created successfully : ", bucket_name)
+    print("Bucket Created successfully : ", bucket)
+    return bucket
 
 
 def batch_caller(gcs_input_uri, gcs_output_uri):
@@ -264,12 +264,12 @@ def concurrentProcessing(
     """
     print("--concurrentProcessing--")
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        print("processing completed")
+        print("processing completed", executor)
 
 
 def hello_world(request) -> str:
     """
-    HTTP Cloud Function which will get deployed and run by the cloud scheduler every hour. 
+    HTTP Cloud Function which will get deployed and run by the cloud scheduler every hour.
     For more information on how to deploy cloud function
     https://cloud.google.com/functions/docs/create-deploy-gcloud-1st-gen.
     Args:
