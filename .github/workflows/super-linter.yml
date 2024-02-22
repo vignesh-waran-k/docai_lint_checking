@@ -9,10 +9,11 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Run Super-Linter
-        uses: github/super-linter@v4
+        uses: super-linter/super-linter@v6.2.0
         env:
           VALIDATE_PYTHON: true
+          VALIDATE_SHELL_SHFMT: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
