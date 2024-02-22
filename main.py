@@ -4,7 +4,6 @@ from typing import List
 
 import pandas as pd
 from google.cloud import documentai, firestore, storage
-
 from utilities import batch_process_documents_sample, copy_blob, list_blobs
 
 """
@@ -265,7 +264,7 @@ def concurrentProcessing(
     """
     print("--concurrentProcessing--")
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-    print("*** processing completed ***")
+        print("processing completed")
 
 
 def hello_world(request) -> str:
