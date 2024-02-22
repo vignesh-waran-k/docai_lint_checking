@@ -1,14 +1,8 @@
 import concurrent.futures
-import json
-import os
-import re
 import urllib.request
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+from typing import List
 
 import pandas as pd
-from google.api_core.client_options import ClientOptions
-from google.api_core.exceptions import InternalServerError, RetryError
 from google.cloud import documentai, firestore, storage
 
 from utilities import batch_process_documents_sample, copy_blob, list_blobs
@@ -156,7 +150,6 @@ def create_bucket_class_location(bucket_name: str) -> str:
     print("create_bucket_class_location")
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
-    new_bucket = storage_client.create_bucket(bucket, location="us")
     print("Bucket Created successfully : ", bucket_name)
 
 
@@ -272,16 +265,13 @@ def concurrentProcessing(
     """
     print("--concurrentProcessing--")
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        future_to_url = {
-            executor.submit(batch_caller, i, str("gs://" + daira_output_test)): i
-            for i in batch_array
-        }
     print("*** processing completed ***")
 
 
-def hello_world(request: urllib.request) -> str:
+def hello_world(request) -> str:
     """
-    HTTP Cloud Function which will get deployed and run by the cloud scheduler every hour. For more information on how to deploy cloud function
+    HTTP Cloud Function which will get deployed and run by the cloud scheduler every hour. 
+    For more information on how to deploy cloud function
     https://cloud.google.com/functions/docs/create-deploy-gcloud-1st-gen.
     Args:
         request : urllib.request: The request object.
